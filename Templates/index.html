@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICP - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            min-height: 50vh;
+            background: lightblue;
+            color: #333;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        
+
+        .feature i {
+            font-size: 3.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .login-signup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .login-signup a {
+            padding: 1rem 2rem;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            width: 150px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .login-signup a:hover {
+            background-color: #555;
+            transform: translateY(-3px);
+        }
+
+        .login-signup h3 {
+            margin: 0;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1 class="animate-fadeInUp">AI-Powered Claim Estimator </h1>
+        <p class="animate-fadeInUp" style="animation-delay: 0.2s;">
+            <b>Estimate your car insurance claim in minutes.</b>
+        </p>
+
+        <div class="features">
+            <div class="feature animate-fadeInUp" style="animation-delay: 0.6s;">
+                <i class="fas fa-car"></i>
+            </div>
+        </div>
+
+        <div class="login-signup animate-fadeInUp" style="animation-delay: 1s;">
+            <h3>Get Started Today</h3>
+            <div class="button-group">
+                <a href="/login">User Login</a>
+                <a href="/signup">User Signup</a>
+            </div>
+        </div>
+    </section>
