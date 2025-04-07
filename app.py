@@ -48,21 +48,12 @@ def signup():
         email = request.form.get('email')
         vehicle_id = request.form.get('vehicleId')
         contact_number = request.form.get('phoneNumber')
-        address = request.form.get('address')
+        policy_number = request.form.get('policy_number')
         car_brand = request.form.get('carBrand')
         model = request.form.get('carModel')
         
-        # print("DATA from form")
-        # print(f"name : {name}")
-        # print(f"email : {email}")
-        # print(f"password : {password}")
-        # print(f"vehicle_id : {vehicle_id}")
-        # print(f"contact_number : {contact_number}")
-        # print(f"address : {address}")
-        # print(f"car_brand : {car_brand}")
-        # print(f"model : {model}")
 
-        if not all([name, password, email, vehicle_id, contact_number, address, car_brand, model]):
+        if not all([name, password, email, vehicle_id, contact_number,policy_number, car_brand, model]):
             flash("All fields are required!", "error")
             return render_template('signup.html')
         
@@ -74,40 +65,19 @@ def signup():
             flash("Email already exists.")
             return render_template('signup.html')
 
-        #connection = connect_to_db()
-        #if connection:
-            #try:
-                #cursor = connection.cursor()
-                #with connection.cursor() as cursor:
-                #query = '''
-                #INSERT INTO user_info (name, password, email, vehicle_id, contact_number, address, car_brand, model)
-                #VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                #'''
-                #cursor.execute(query, (name, hashed_password, email, vehicle_id, contact_number, address, car_brand, model))
-                #connection.commit()
-                #cursor.close()
+        
         user_info_collection.insert_one({
             "name":name,
             "password":hashed_password,
             "email":email,
             "vehicle_id":vehicle_id,
             "contact_number":contact_number,
-            "address":address,
+            "policy_number":policy_number,
             "car_brand":car_brand,
             "model":model
         })
         flash("Signup successful!", "success")
         return redirect(url_for('dashboard'))
-            #except connector.IntegrityError as e:
-                #if 'Duplicate entry' in str(e):
-                    #flash("Email already exists. Please use a different email.", "error")
-                #else:
-                    #flash("An error occurred while signing up. Please try again.", "error")
-            #except connector.Error as e:
-                #print(f"Error executing query: {e}")
-                #flash("An error occurred while signing up. Please try again.", "error")
-        #else:
-            #flash("Database connection failed. Please try again later.", "error")
             
     return render_template('signup.html')
 
@@ -290,7 +260,9 @@ def view_profile():
     #else:
         #flash("Database connection failed. Please try again later.", "error")
 
-    return redirect(url_for('dashboard'))
+    #return redirect(url_for('dashboard'))
+    return render_template('view_profile.html', user_info=user_info)
+
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
