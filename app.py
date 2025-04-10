@@ -19,19 +19,9 @@ app = Flask(__name__)
 print("SECRET_KEY:", os.getenv('SECRET_KEY')) 
 app.secret_key = os.getenv('SECRET_KEY')
 
-
-
-#def connect_to_db():
-    #try:
-        #connection = connector.connect(**config.mysql_credentials)
-        #return connection
-    #except connector.Error as e:
-        #print(f"Error connecting to database: {e}")
-        #return None
-
 def connect_to_mongo():
-    client = MongoClient('mongodb://localhost:27017/')  # Change URL if you're using MongoDB Atlas
-    db = client['car_damage_detection']  # Replace with your database name
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['car_damage_detection']  
     return db
 
 
@@ -96,25 +86,16 @@ def login():
 
         db = connect_to_mongo()
         user_info = db.user_info.find_one({"email":email})
-        #if connection:
-            #try:
-                #cursor = connection.cursor()#with connection.cursor() as cursor:
-                #query = "SELECT password FROM user_info WHERE email = %s"
-                #cursor.execute(query, (email,))
-                #result = cursor.fetchone()
+
         if user_info:
             stored_password = user_info["password"]
             if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
-                #if result and bcrypt.checkpw(password.encode('utf-8'), result[0].encode('utf-8')):
-                session['user_email'] = email  # Store user email in session
+                session['user_email'] = email  # Store session
                 flash("Login successful!", "success")
                 return redirect(url_for('dashboard'))
             else:
                 flash("Invalid email or password.", "error")
-                #cursor.close()
-            #except connector.Error as e:
-                #print(f"Error executing query: {e}")
-                #flash("An error occurred during login. Please try again.", "error")
+                
         else:
             flash("Database connection failed. Please try again later.", "error")
 
