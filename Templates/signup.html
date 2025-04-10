@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background:lightgrey;
+            background: linear-gradient(135deg, #e0e7ff, #d1fae5);
+      color:#059669;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,8 +40,8 @@
             box-sizing: border-box;
         }
         .inputBox input[type="submit"] {
-            background-color:black;
-            color: white;
+      background-color:#059669;
+      color:white;
             border: none;
             width: 100%;
             padding: 10px;
@@ -59,7 +60,7 @@
             font-size: 14px;
         }
         .login-link a {
-            color: #007BFF;
+            color:  #059669;
             text-decoration: none;
         }
     </style>
@@ -80,35 +81,35 @@
 
         <form action="{{ url_for('signup') }}" method="POST">
             <div class="input-group">
-                <label for="name">Full Name</label>
+                <label for="name"><b>Full Name</b></label>
                 <input type="text" id="name" name="name" required>
             </div>
             <div class="input-group">
-                <label for="email">Email</label>
+                <label for="email"><b>Email</b></label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="input-group">
-                <label for="password">Password</label>
+                <label for="password"><b>Password</b></label>
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="input-group">
-                <label for="phoneNumber">Phone Number</label>
+                <label for="phoneNumber"><b>Phone Number</b></label>
                 <input type="tel" id="phoneNumber" name="phoneNumber" required>
             </div>
             <div class="input-group">
-                <label for="policy_number">Policy Number</label>
+                <label for="policy_number"><b>Policy Number</b></label>
                 <input type="text" id="policy_number" name="policy_number" required>
             </div>
             <div class="input-group">
-                <label for="vehicleId">Vehicle ID</label>
+                <label for="vehicleId"><b>Vehicle ID</b></label>
                 <input type="text" id="vehicleId" name="vehicleId" required>
             </div>
             <div class="input-group">
-                <label for="carBrand">Car Brand</label>
+                <label for="carBrand"><b>Car Brand</b></label>
                 <input type="text" id="carBrand" name="carBrand" required>
             </div>
             <div class="input-group">
-                <label for="carModel">Car Model</label>
+                <label for="carModel"><b>Car Model</b></label>
                 <input type="text" id="carModel" name="carModel" required>
             </div>
             <div class="inputBox">
@@ -117,7 +118,7 @@
         </form>
 
         <div class="login-link">
-            Already have an account? <a href="/login">Login</a>
+             <p style="color: black;">Already have an account? <a href="/login">Login</a></p>
         </div>
     </div>
 </body>

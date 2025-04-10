@@ -13,7 +13,8 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background: lightgrey;
+      background: linear-gradient(135deg, #e0e7ff, #d1fae5);
+      color:#059669;
     }
 
     .login-container {
@@ -56,7 +57,7 @@
     button {
       width: 100%;
       padding: 0.75rem;
-      background-color: #333;
+      background-color: #059669;
       color: white;
       border: none;
       border-radius: 5px;
@@ -71,7 +72,7 @@
 
     .signup-link a {
       text-decoration: none;
-      color: blue;
+      color: #059669;
     }
 
     .signup-link a:hover {
@@ -92,7 +93,7 @@
     }
 
     .nav-text-link a {
-      color: blue;
+      color:#059669 ;
       text-decoration: none;
       font-weight: bold;
     }
@@ -103,22 +104,26 @@
   </style>
 </head>
 <body>
-
-  <!-- Simple Home Text Link -->
- 
-
-  <!-- Login Box -->
   <div class="login-container">
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
     <h2>Login</h2>
 
     <form action="{{ url_for('login') }}" method="POST">
       <div class="input-group">
-        <label for="email">Email</label>
+        <label for="email"><b>Email</b></label>
         <input type="email" name="email" id="email" placeholder="email@example.com" required>
       </div>
 
       <div class="input-group">
-        <label for="password">Password</label>
+        <label for="password"><b>Password</b></label>
         <input type="password" name="password" id="password" placeholder="Enter password" required>
         <span class="password-toggle" onclick="togglePassword()">👁️</span>
       </div>
@@ -126,19 +131,10 @@
       <button type="submit">Login</button>
     </form>
 
-    <!-- Flash or Error Message -->
-    <div class="error-message" id="error-message">
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            {{ message }}
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-    </div>
+
 
     <div class="signup-link">
-      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+      <p style="color: black;">Don't have an account? <a href="/signup">Sign Up</a></p>
     </div>
     <div class="nav-text-link">
    

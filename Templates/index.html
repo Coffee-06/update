@@ -1,57 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Claim Estimator</title>
   <style>
-  body {
-    font-family: sans-serif;
-    background-color: lightgrey;
-    color: #222;
-    text-align: center;
-    margin-top: 90px;
-  }
-  h1{
-    font-size: 50px;
-  }
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #e0e7ff, #d1fae5);
 
-  .button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
-   gap:10px;
-    border-radius: 10px; /* Rounded corners */
-    
-    margin: auto; /* Centers the box */
-   
- 
-  }
+      color:#059669;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-  .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: black; /* Button color */
-    color: #fff; /* Text color */
-    text-decoration: none; /* Removes underline */
-    border-radius: 5px;
-   
-  }
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+      min-height: 300px; 
+    }
 
-     
+    h1 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 50%;
+      margin: 0 auto; /* Centers the group horizontally */
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 0;
+      background-color:#059669;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 18px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
   </style>
 </head>
 <body>
 
-  <h1>AI-Powered Claim Estimator</h1>
-<br>
+  <div class="container">
+    <h1>AI-Powered Claim Estimator</h1>
 
-  <div class="button-group">
-<br>
-    <a href="/login" class="btn">User Login</a>
-    <br><br><br>
-    <a href="/signup" class="btn">User Signup</a>
+    <div class="button-group">
+      <a href="/login" class="btn">User Login</a>
+      <a href="/signup" class="btn">User Signup</a>
+    </div>
   </div>
 
 </body>

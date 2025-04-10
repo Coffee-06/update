@@ -1,210 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repair Estimate</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repair Estimate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #e0e7ff, #d1fae5);
+      color: #059669;
+    }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: lightblue;
-        }
-        .estimate-container {
-            max-width: 800px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 1.5rem;
-        }
-        .images {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-        .images img {
-            max-width: 45%;
-            height: auto;
-            border-radius: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        .total-cost {
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .repair-costs h3 {
-            text-align: center;
-            color: #333;
-        }
-        .print-button {
-            display: block;
-            width: 200px;
-            margin: 20px auto 0;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        @media print {
-            body {
-                background: none;
-            }
-            .estimate-container {
-                box-shadow: none;
-            }
-            .print-button {
-                display: none;
-            }
-        }
+    .estimate-container {
+      max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
 
-        .nav-buttons {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-        }
+    h2 {
+      text-align: center;
+      color: #059669;
+      margin-bottom: 1.5rem;
+    }
 
-        .home-button, .user-profile {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .images {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
 
-        .home-button:hover, .user-profile:hover {
-            background-color: rgba(255, 255, 255, 1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
+    .images img {
+      max-width: 45%;
+      height: auto;
+      border-radius: 8px;
+    }
 
-        .home-button i, .user-profile i {
-            font-size: 1.2rem;
-            color: #333;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
 
-        .user-profile {
-            position: relative;
-        }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
 
-        .profile-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            display: none;
-            z-index: 1000;
-        }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
 
-        .user-profile:hover .profile-dropdown {
-            display: block;
-        }
+    .total-cost {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        .profile-dropdown a {
-            display: block;
-            padding: 8px 15px;
-            color: #2c3e50;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            white-space: nowrap;
-        }
+    .repair-costs {
+      text-align: center;
+      color: #333;
+    }
 
-        .profile-dropdown a:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+    .print-button {
+      display: block;
+      width: 200px;
+      margin: 20px auto 0;
+      padding: 10px;
+      background-color: #059669;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    @media print {
+      body {
+        background: none;
+      }
+
+      .estimate-container {
+        box-shadow: none;
+      }
+
+      .print-button {
+        display: none;
+      }
+    }
+
+    .nav-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .nav-buttons a {
+      text-decoration: none;
+      color: #059669;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .user-menu {
+      position: relative;
+      font-weight: 600;
+      color: #059669;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 120%;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 15px;
+      color: #333;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown a:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
-    <div class="nav-buttons">
-        <a href="/" class="home-button">
-            <i class="fas fa-home"></i>
-        </a>
-        <div class="user-profile">
-            <i class="fas fa-user-circle"></i>
-            <div class="profile-dropdown">
-                <a href="/view_profile">View Profile</a>
-                <a href="/dashboard">Dashboard</a>
-                <a href="/logout">Logout</a>
-            </div>
-        </div>
+  <div class="nav-buttons">
+    <a href="/"><b>Home</b></a>
+    <div class="user-menu" onclick="toggleDropdown()">Menu ▾
+      <div class="dropdown" id="dropdownMenu">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout"><b>Logout</b></a>
+      </div>
     </div>
-    <div class="estimate-container">
-        <h2>Quotation for Damage Recovery</h2>
-        <div class="images">
-            <img src="{{ url_for('static', filename=original_image) }}" alt="Original Image">
-            <img src="{{ url_for('static', filename=detected_image) }}" alt="Detected Image">
-        </div>
-        <div class="repair-costs">
-            <h3>Estimated Repair Prices</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Part Name</th>
-                        <th>Count</th>
-                        <th>Price per Part ($)</th>
-                        <th>Total Price ($)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for part, details in part_prices.items() %}
-                    <tr>
-                        <td>{{ part }}</td>
-                        <td>{{ details['count'] }}</td>
-                        <td>{{ details['price'] }}</td>
-                        <td>{{ details['total'] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="total-cost">
-                Total Estimated Price: ₹{{ part_prices.values() | map(attribute='total') | sum }}
-            </div>            
-        </div>
-        <button class="print-button" onclick="window.print()">Print Quotation</button>
+  </div>
+
+  <div class="estimate-container">
+    <h2>Quotation for Damage Recovery</h2>
+    <div class="repair-costs">
+      <h3>Estimated Repair Prices</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Part Name</th>
+            <th>Count</th>
+            <th>Price per Part ($)</th>
+            <th>Total Price ($)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for part, details in part_prices.items() %}
+          <tr>
+            <td>{{ part }}</td>
+            <td>{{ details['count'] }}</td>
+            <td>{{ details['price'] }}</td>
+            <td>{{ details['total'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="total-cost">
+        Total Estimated Price: ₹{{ part_prices.values() | map(attribute='total') | sum }}
+      </div>
     </div>
-    <script>
-        function printQuotation() {
-            window.print();
-        }
-    </script>
+    <button class="print-button" onclick="window.print()">Print Quotation</button>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById("dropdownMenu");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    document.addEventListener("click", function (e) {
+      const dropdown = document.getElementById("dropdownMenu");
+      const userMenu = document.querySelector(".user-menu");
+      if (!userMenu.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
