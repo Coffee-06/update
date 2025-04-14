@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0e7ff, #d1fae5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 2rem 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #059669;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      background-color: #059669;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #047857;
+    }
+
+    .flash {
+      margin-bottom: 1rem;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .flash.success {
+      background-color: #d1fae5;
+      color: #059669;
+    }
+
+    .flash.error {
+      background-color: #fee2e2;
+      color: #dc2626;
+    }
+   
+  .top-right-logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .top-right-logout form {
+    margin: 0;
+  }
+
+  .top-right-logout button {
+    background-color: #059669;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .top-right-logout button:hover {
+    background-color: #047857;
+  }
+
+
+  </style>
+</head>
+<body>
+    <div class="top-right-logout">
+        <form action="{{ url_for('home') }}" method="GET">
+          <button type="submit">Home</button>
+        </form>
+      </div>
+  <div class="login-container">
+    
+    <h2>Admin Login</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('admin_login') }}">
+      <label>User ID:</label>
+      <input type="text" name="user_id" required>
+
+      <label>Password:</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>

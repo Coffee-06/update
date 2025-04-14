@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,16 +32,22 @@
       margin-bottom: 1.5rem;
     }
 
+    .user-details {
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
     .images {
-      display: flex;
-      justify-content: space-around;
+      text-align: center;
       margin-bottom: 20px;
     }
 
     .images img {
-      max-width: 45%;
+      max-width: 90%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     }
 
     table {
@@ -70,10 +77,17 @@
       color: #333;
     }
 
-    .print-button {
-      display: block;
+    .button-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .print-button,
+    .claim-button {
       width: 200px;
-      margin: 20px auto 0;
       padding: 10px;
       background-color: #059669;
       color: white;
@@ -81,20 +95,6 @@
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
-    }
-
-    @media print {
-      body {
-        background: none;
-      }
-
-      .estimate-container {
-        box-shadow: none;
-      }
-
-      .print-button {
-        display: none;
-      }
     }
 
     .nav-buttons {
@@ -145,14 +145,58 @@
     .dropdown a:hover {
       background-color: #f1f1f1;
     }
+
+    @media print {
+      body {
+        background: none;
+        color: black;
+      }
+
+      .estimate-container {
+        box-shadow: none;
+      }
+
+      .print-button,
+      .claim-button,
+      .nav-buttons,
+      .user-menu,
+      .dropdown {
+        display: none !important;
+      }
+
+      .user-details {
+        display: block !important;
+        color: black;
+        font-size: 16px;
+      }
+
+      .images img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 10px;
+        border: 1px solid #000;
+        color: black;
+      }
+    }
   </style>
 </head>
 <body>
+ 
+
   <div class="nav-buttons">
     <a href="/"><b>Home</b></a>
     <div class="user-menu" onclick="toggleDropdown()">Menu ▾
       <div class="dropdown" id="dropdownMenu">
         <a href="/dashboard">Dashboard</a>
+        <a href="/my_claims"><b>View Claim Status</b></a>
         <a href="/logout"><b>Logout</b></a>
       </div>
     </div>
@@ -160,6 +204,38 @@
 
   <div class="estimate-container">
     <h2>Quotation for Damage Recovery</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% if damage_image %}
+    <img src="{{ url_for('static', filename='uploads/' + damage_image) }}" alt="Damage Image" width="300">
+  {% endif %}
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+  
+      <!-- Left Side: Fields -->
+      <div style="flex: 1; color:#000">
+        <p><strong>Name:</strong> {{ Name }}</p>
+        <p><strong>Date:</strong> {{ current_date }}</p>
+        <p><strong>Vehicle ID:</strong> {{ vehicle_id }}</p>
+        <p><strong>Brand:</strong> {{ brand }}</p>
+        <p><strong>Model:</strong> {{ model }}</p>
+        <p><strong>Total Estimate:</strong> ₹{{ total }}</p>
+      </div>
+    
+      <!-- Right Side: Image -->
+      <div style="flex: 1; text-align: right;">
+        <img src="{{ url_for('static', filename=detected_image) }}" alt="Detected Image" style="max-width: 50%; height: auto; border: 1px solid #ccc;" />
+      </div>
+    
+    </div>
+    
+    
+  
+
     <div class="repair-costs">
       <h3>Estimated Repair Prices</h3>
       <table>
@@ -182,11 +258,22 @@
           {% endfor %}
         </tbody>
       </table>
+
       <div class="total-cost">
         Total Estimated Price: ₹{{ part_prices.values() | map(attribute='total') | sum }}
       </div>
+
+      <div class="button-wrapper">
+        <form action="/request_claim" method="POST">
+          <input type="hidden" name="parts" value="{{ parts | tojson }}">
+          <input type="hidden" name="total" value="{{ total }}">
+          <input type="hidden" name="damage_image" value="{{ detected_image }}">
+          <button type="submit" class="claim-button">Request Claim</button>
+        </form>
+
+        <button class="print-button" onclick="window.print()">Print Quotation</button>
+      </div>
     </div>
-    <button class="print-button" onclick="window.print()">Print Quotation</button>
   </div>
 
   <script>
@@ -205,3 +292,4 @@
   </script>
 </body>
 </html>
+

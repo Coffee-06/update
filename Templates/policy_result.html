@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Policy Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0e7ff, #d1fae5);
+      color: #059669;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .result-container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .policy-info {
+      margin-bottom: 1.5rem;
+    }
+
+    .policy-info p {
+      margin: 0.4rem 0;
+      color:black;
+    }
+
+    .status {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .expired {
+      color: red;
+    }
+
+   
+    .dropdown {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.dropbtn {
+  background-color: #059669;
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #059669;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  font-weight: bold;
+}
+
+.dropdown-content a:hover {
+  background-color: #d1fae5;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+  </style>
+</head>
+<body>
+    <!-- Add this dropdown HTML at the top inside <body> -->
+<div class="dropdown">
+    <button class="dropbtn">☰ Menu</button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+  
+  <div class="result-container">
+    <h2>Policy Validation Result</h2>
+
+    <div class="policy-info">
+      <p><strong>Policy Number:</strong> {{ policy.policy_number }}</p>
+      <p><strong>Vehicle ID:</strong> {{ policy.vehicle_id }}</p>
+      <p><strong>Brand:</strong> {{ policy.car_brand }}</p>
+      <p><strong>Model:</strong> {{ policy.model }}</p>
+      <p><strong>Expiry Date:</strong> {{ policy.expiry_date }}</p>
+    </div>
+
+    <div class="status {% if not valid %}expired{% endif %}">
+      {% if valid %}
+        ✅ Policy is valid!
+      {% else %}
+        ❌ Policy has expired.
+      {% endif %}
+    </div>
+
+    {% if valid %}
+    <div style="text-align: center; margin-top: 20px;">
+      <form action="{{ url_for('dashboard') }}" method="get">
+        <button type="submit" style="
+          background-color: #059669;
+          color: white;
+          padding: 10px 20px;
+          font-size: 1rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+        ">
+          Upload Damage
+        </button>
+      </form>
+    </div>
+  {% endif %}
+  
+      
+  </div>
+</body>
+</html>
+

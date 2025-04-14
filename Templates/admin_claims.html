@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Manage Claims</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0e7ff, #d1fae5);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #059669;
+      margin-bottom: 1.5rem;
+    }
+
+    form.logout-form {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    button[type="submit"] {
+      background-color: #059669;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #047857;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f0fdf4;
+      color: #065f46;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    a {
+      margin-right: 10px;
+      text-decoration: none;
+      color: #059669;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>All Claim Requests</h2>
+
+    <form action="{{ url_for('clear_session') }}" method="POST" class="logout-form">
+      <button type="submit">Logout</button>
+    </form>
+
+    <table>
+      <tr>
+        <th>User Email</th>
+        <th>Vehicle ID</th>
+        <th>Policy Number</th>
+        <th>Parts</th>
+        <th>Total Amount</th>
+        <th>Damage Image</th>
+        <th>Action</th>
+
+      </tr>
+      {% for claim in claims %}
+      <tr>
+        <td>{{ claim.user_email }}</td>
+        <td>{{ claim.vehicle_id }}</td>
+        <td>{{ claim.policy_number }}</td>
+        <td>
+          <ul>
+            {% for part, info in claim.estimated_parts.items() %}
+              <li>{{ part }} - Qty: {{ info.count }}, <br>Total: ₹{{ info.total }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>₹{{ claim.total_amount }}</td>
+        <td>
+            {% if claim.damage_image %}
+                <img src="{{ url_for('static', filename='detected_image.jpg') }}" width="100" height="70" alt="Damage Image">
+            {% else %}
+                <span>No image</span>
+            {% endif %}
+        </td>
+          
+        <td>
+          {% if claim.claim_status == 'pending verification' %}
+            <a href="{{ url_for('claim_action', claim_id=claim._id, action='approved') }}">✅ Approve</a>
+            <br>
+            <a href="{{ url_for('claim_action', claim_id=claim._id, action='rejected') }}">❌ Reject</a>
+          {% else %}
+            {{ claim.claim_status | capitalize }}
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+</html>
